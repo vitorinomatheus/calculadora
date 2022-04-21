@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'DS-Digital Normal';
+    font-style: normal;
+    font-weight: normal;
+    src: local('DS-Digital Normal'), url('DS-DIGI.woff') format('woff');
+    }
+
+body {
+    height: 100vh;
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(36, 35, 35);
+    border-radius: 20px;
+    width: 450px;
+    height: 550px;
+    padding: 30px;
+    padding-top: 40px;
+    padding-bottom: 8px;
+}
+
+.display {
+    display: flex;
+    align-content: center;
+    justify-content: flex-end;
+    border-radius: 3px;
+    background-color: rgb(4, 145, 4);
+    font-family: 'DS-Digital Normal';
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 60px;
+    height: 100%;
+}
+
+.display p{
+    margin: 10px;
+}
+
+.superior {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.superior button {
+    height: 60px;
+    width: 70px;
+    border: 0px;
+    border-radius: 20px;
+    font-family: 'Lato';
+    font-size: 25px; 
+}
+
+.inferior button {
+    border: 0px;
+    border-radius: 20px;
+    font-size: 25px;
+    font-family: 'Lato';
+}
+
+.inferior {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.nums {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: fit-content;
+    gap: 20px;
+}
+
+.nums div {
+    display: flex;
+    justify-content: space-between;    
+    gap: 35px;
+}
+
+.nums button {
+    height: 60px;
+    width: 70px;
+    background-color: rgb(173, 173, 173);
+    color: white;
+}
+
+.nums .last {
+    width: 100%;
+}
+
+#zero {
+    width: 175px;
+    height: 60px;
+}
+
+.lateral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lateral button {
+    height: 60px;
+    width: 70px;
+}
+
+.lateral .igual {
+    height: 140px;
+    background-color: rgb(235, 152, 0);
+    color: white;
+}
+
+.rodape {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: rgb(131, 130, 130);
+    font-size: 17px;
+    margin-top: 10px;
+    font-family: 'Lato';
+    height: 100%;
+}
+
+.rodape img {
+    align-self: center;
+}
+
+.rodape p {
+    margin: 0;
+}
