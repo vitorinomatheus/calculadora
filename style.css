@@ -52,7 +52,7 @@ body {
 
 .superior button {
     height: 60px;
-    width: 70px;
+    width: 90px;
     border: 0px;
     border-radius: 20px;
     font-family: 'Lato';
@@ -86,12 +86,12 @@ body {
 .nums div {
     display: flex;
     justify-content: space-between;    
-    gap: 35px;
+    gap: 15px;
 }
 
 .nums button {
     height: 60px;
-    width: 70px;
+    width: 90px;
     background-color: rgb(173, 173, 173);
     color: white;
 }
@@ -101,7 +101,7 @@ body {
 }
 
 #zero {
-    width: 175px;
+    width: 195px;
     height: 60px;
 }
 
@@ -114,13 +114,15 @@ body {
 
 .lateral button {
     height: 60px;
-    width: 70px;
+    width: 100px;
 }
 
-.lateral .igual {
+.lateral #igual {
     height: 140px;
+    width: 85px;
     background-color: rgb(235, 152, 0);
     color: white;
+    font-size: 50px;
 }
 
 .rodape {
