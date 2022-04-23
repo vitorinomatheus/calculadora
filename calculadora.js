@@ -1,103 +1,112 @@
-//Operações
-function soma(a, b){
-    return a+b;
+//Declara constantes
+const btn = document.querySelectorAll('.botao');
+const num = document.querySelectorAll('[data-type="numero"]');
+const operador = document.querySelectorAll('[data-type="operador"]');
+const clearAll = document.querySelector('#clear');
+const desfazer = document.querySelector('#desfazer');
+const display = document.querySelector('.tela');
+
+//declara variáveis
+let primeiroOp;
+let segundoOp;
+let calc;
+let resultado;
+
+//configura display inicial
+display.textContent = '0';
+
+//
+clearAll.addEventListener('click', () => {
+    primeiroOp = undefined;
+    segundoOp = undefined;
+    display.textContent = '0';
+});
+
+desfazer.addEventListener('click', () => {
+    if(primeiroOp.length > 1)
+    {
+        primeiroOp = primeiroOp.slice(0, -1);
+        display.textContent = primeiroOp;
+    }
+    else
+    {
+        primeiroOp = undefined;
+        display.textContent = '0';
+    }
+});
+
+//
+num.forEach((numero) => {
+    numero.addEventListener('click', () => gerarNum(numero.value));
+});
+
+operador.forEach((operacao) => {
+    operacao.addEventListener('click', () => calculo(operacao.value));
+});
+
+//
+function gerarNum(input){
+    if(primeiroOp == undefined)
+    {
+        primeiroOp = input;
+        display.textContent = primeiroOp;
+    }
+    else if (primeiroOp.length > 12)
+    {
+        primeiroOp = primeiroOp;
+    }
+    else
+    {
+        primeiroOp += input;
+        display.textContent = primeiroOp;
+    }
 };
 
-function sub(a, b){
-    return a-b;
+function calculo(ope){
+    if(primeiroOp == undefined)
+    {
+        return false
+    }
+
+    else if(primeiroOp != undefined && segundoOp == undefined)
+    {
+        segundoOp = primeiroOp;
+        primeiroOp = undefined;
+    }
+    else if(primeiroOp != undefined && segundoOp !=undefined)
+    {
+        primeiroOp = parseInt(primeiroOp);
+        segundoOp = parseInt(segundoOp);
+        console.log(primeiroOp, segundoOp, ope);
+        display.textContent = operar(ope, primeiroOp, segundoOp);
+    }
 };
 
-function multi(a, b){
-    return a*b;
+function operar(valor, a, b)
+{
+    if(valor == '+')
+    {
+        primeiroOp = a + b;
+        segundoOp = undefined;
+        return a + b;
+    }
+
+    else if(valor == '-')
+    {
+        primeiroOp = a - b;
+        segundoOp = undefined;
+        return a - b;
+    }
+    else if(valor == '/')
+    {
+        primeiroOp = a / b;
+        segundoOp = undefined;
+        return a / b;
+    }
+    else if(valor == '*')
+    {
+        primeiroOp = a * b;
+        segundoOp = undefined;
+        return a * b
+    }
 };
-
-function div(a, b){
-    return a/b;
-};
-
-function listener(){
-    //constantes e variáveis
-    const num = document.querySelectorAll('.botao');
-    const display = document.querySelector('.tela')
-    let input;
-
-    //escuta e preenchimento de variáveis;
-    let a = num.forEach((btn) => {
-        btn.addEventListener('click', () => 
-        {
-            //define comportamento dos botões especiais
-            if(btn.id === 'clear')
-            {
-                input = undefined;
-                display.textContent = '0';
-            }
-
-            else if(input !== undefined && btn.id === 'desfazer')
-            {
-                if(input.length == 1)
-                {
-                    input = undefined;
-                    display.textContent = '0';
-                }
-                else
-                {
-                    input = input.slice(0, -1);
-                    display.textContent = input;
-                }
-
-            }
-
-            else if(input !== undefined && btn.dataset.type == 'operador')
-            {
-                console.log(input + btn.id);
-                return input + btn.id;
-            }
-
-            //define comportamento dos números
-            else
-            {
-                if(input == undefined && btn.dataset.type == 'numero')
-                {
-                    if(btn.id === 'zero')
-                    {
-                        input = "0";
-                        display.textContent = input;
-                    }
-                    else 
-                    {
-                    input = btn.id;
-                    display.textContent = input;
-                    }
-                }
-
-                else if(input.length > 12)
-                {
-                    input = input;
-                }
-
-                else if(btn.dataset.type == 'numero'){
-                    if(btn.id === 'zero')
-                    {
-                        input = input + "0";
-                        display.textContent = input;
-                    }
-                    else 
-                    {
-                    input = input + btn.id;
-                    display.textContent = input;
-                    }
-                }
-            }
-            console.log(input)
-        });  
-    });
-};
-
-//Calculo
-
-function calculo(){
-    let a = listener();
-    console.log(a);
-};
-
-calculo();
