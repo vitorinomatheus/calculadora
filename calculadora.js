@@ -5,17 +5,21 @@ const operador = document.querySelectorAll('[data-type="operador"]');
 const clearAll = document.querySelector('#clear');
 const desfazer = document.querySelector('#desfazer');
 const display = document.querySelector('.tela');
+const ponto = document.querySelector('#ponto');
+//
 
 //declara variáveis
 let primeiroOp;
 let segundoOp;
 let calc;
 let resultado;
+//
 
 //configura display inicial
 display.textContent = '0';
-
 //
+
+//Listeners simples
 clearAll.addEventListener('click', () => {
     primeiroOp = undefined;
     segundoOp = undefined;
@@ -35,7 +39,27 @@ desfazer.addEventListener('click', () => {
     }
 });
 
+ponto.addEventListener('click', () => {
+    if(primeiroOp == undefined)
+    {
+        primeiroOp = "0.";
+        display.textContent = primeiroOp;
+    }
+    else if(primeiroOp.includes('.')) 
+    {
+        return;
+    }
+    else if(primeiroOp != undefined)
+    {
+        primeiroOp = primeiroOp + '.';
+        display.textContent = primeiroOp;
+    }
+});
+
+window.addEventListener('keydown', (e) => teclado(e.key));
 //
+
+//Listeners de Nodes
 num.forEach((numero) => {
     numero.addEventListener('click', () => gerarNum(numero.value));
 });
@@ -43,8 +67,9 @@ num.forEach((numero) => {
 operador.forEach((operacao) => {
     operacao.addEventListener('click', () => calculo(operacao.value));
 });
-
 //
+
+//Funções
 function gerarNum(input){
     if(primeiroOp == undefined)
     {
@@ -53,13 +78,66 @@ function gerarNum(input){
     }
     else if (primeiroOp.length > 12)
     {
-        primeiroOp = primeiroOp;
+        return;
     }
     else
     {
         primeiroOp += input;
         display.textContent = primeiroOp;
     }
+};
+
+function teclado(tecla){
+    //numeros
+    if(tecla >= 0 && tecla <= 9)
+    {
+        gerarNum(tecla);
+    }
+    //ponto
+    else if(tecla == '.' || tecla ==',')
+    {
+        if(primeiroOp == undefined)
+    {
+        primeiroOp = "0.";
+        display.textContent = primeiroOp;
+    }
+    else if(primeiroOp.includes('.')) 
+    {
+        return;
+    }
+    else if(primeiroOp != undefined)
+    {
+        primeiroOp = primeiroOp + '.';
+        display.textContent = primeiroOp;
+    }
+    }
+    //operadores
+    else if(tecla == '+' || tecla == '-' || tecla == '*' || tecla == '=' || tecla == 'Enter')
+    {
+        calculo(tecla);
+    }
+    //backspace
+    else if(tecla == 'Backspace')
+    {
+        if(primeiroOp.length > 1)
+        {
+            primeiroOp = primeiroOp.slice(0, -1);
+            display.textContent = primeiroOp;
+        }
+        else
+        {
+            primeiroOp = undefined;
+            display.textContent = '0';
+        }
+    }
+    //limpar tudo
+    else if(tecla == 'Delete')
+    {
+        primeiroOp = undefined;
+        segundoOp = undefined;
+        display.textContent = '0';
+    }
+
 };
 
 function calculo(ope){
@@ -72,13 +150,42 @@ function calculo(ope){
     {
         segundoOp = primeiroOp;
         primeiroOp = undefined;
+        calc = ope;
     }
-    else if(primeiroOp != undefined && segundoOp !=undefined)
+    else if(primeiroOp != undefined && segundoOp != undefined && (ope == '=' || ope == 'enter'))
     {
         primeiroOp = parseInt(primeiroOp);
         segundoOp = parseInt(segundoOp);
-        console.log(primeiroOp, segundoOp, ope);
-        display.textContent = operar(ope, primeiroOp, segundoOp);
+        segundoOp = operar(calc, segundoOp, primeiroOp).toString();
+
+        if(segundoOp.length > 12)
+        {
+            segundoOp = Math.round(segundoOp * 10000)/10000;
+            display.textContent = segundoOp;
+        }
+        else
+        {
+            display.textContent = segundoOp;
+        }
+    }
+
+    else if(primeiroOp != undefined && segundoOp != undefined && ope != '=')
+    {
+        primeiroOp = parseInt(primeiroOp);
+        segundoOp = parseInt(segundoOp);
+        segundoOp = operar(calc, segundoOp, primeiroOp).toString();
+
+        if(segundoOp.length > 12)
+        {
+            segundoOp = Math.round(segundoOp * 10000)/10000;
+            display.textContent = segundoOp;
+        }
+        else
+        {
+            display.textContent = segundoOp;
+        }
+
+        calc = ope;
     }
 };
 
@@ -86,27 +193,37 @@ function operar(valor, a, b)
 {
     if(valor == '+')
     {
-        primeiroOp = a + b;
-        segundoOp = undefined;
+        segundoOp = a + b;
+        primeiroOp = undefined;
         return a + b;
     }
 
     else if(valor == '-')
     {
-        primeiroOp = a - b;
-        segundoOp = undefined;
+        segundoOp = a - b;
+        primeiroOp = undefined;
         return a - b;
     }
     else if(valor == '/')
     {
-        primeiroOp = a / b;
-        segundoOp = undefined;
+        if(b == 0) 
+        {
+            segundoOp = undefined;
+            primeiroOp = undefined;
+            return display.textContent='ERROR';
+        }
+        else 
+        {
+        segundoOp = a / b;
+        primeiroOp = undefined;
         return a / b;
+        }
     }
     else if(valor == '*')
     {
-        primeiroOp = a * b;
-        segundoOp = undefined;
+        segundoOp = a * b;
+        primeiroOp = undefined;
         return a * b
     }
 };
+//
