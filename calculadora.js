@@ -112,7 +112,7 @@ function teclado(tecla){
     }
     }
     //operadores
-    else if(tecla == '+' || tecla == '-' || tecla == '*' || tecla == '=' || tecla == 'Enter')
+    else if(tecla == '/' || tecla == '+' || tecla == '-' || tecla == '*' || tecla == '=' || tecla == 'Enter')
     {
         calculo(tecla);
     }
