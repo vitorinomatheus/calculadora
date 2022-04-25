@@ -152,7 +152,7 @@ function calculo(ope){
         primeiroOp = undefined;
         calc = ope;
     }
-    else if(primeiroOp != undefined && segundoOp != undefined && (ope == '=' || ope == 'enter'))
+    else if(primeiroOp != undefined && segundoOp != undefined && (ope == '=' || ope == 'Enter'))
     {
         primeiroOp = parseInt(primeiroOp);
         segundoOp = parseInt(segundoOp);
